@@ -14,9 +14,8 @@ let routes = [
 
 
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
 const router = new VueRouter({
+    mode: 'history',
     routes // short for `routes: routes`
 });
 
