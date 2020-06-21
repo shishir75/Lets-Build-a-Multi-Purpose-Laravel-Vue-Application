@@ -147,7 +147,10 @@
                 this.$Progress.start();
                 this.form.post('api/user');
 
-                $('#addNew').modal('hide');
+                // custom event
+                Fire.$emit('AfterCreate');
+
+                $('#addNew').modal('hide'); // hide modal
 
                 Toast.fire({
                     icon: 'success',
@@ -158,7 +161,8 @@
         },
         created() {
             this.loadUsers();
-            setInterval(() => this.loadUsers(), 3000);
+            Fire.$on('AfterCreate', () => this.loadUsers()); // good method
+             // setInterval(() => this.loadUsers(), 3000);  // bad method
         }
     }
 </script>

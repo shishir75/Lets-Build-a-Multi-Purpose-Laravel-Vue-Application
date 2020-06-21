@@ -2142,8 +2142,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     createUser: function createUser() {
       this.$Progress.start();
-      this.form.post('api/user');
-      $('#addNew').modal('hide');
+      this.form.post('api/user'); // custom event
+
+      Fire.$emit('AfterCreate');
+      $('#addNew').modal('hide'); // hide modal
+
       Toast.fire({
         icon: 'success',
         title: 'User Created successfully!'
@@ -2155,9 +2158,10 @@ __webpack_require__.r(__webpack_exports__);
     var _this2 = this;
 
     this.loadUsers();
-    setInterval(function () {
+    Fire.$on('AfterCreate', function () {
       return _this2.loadUsers();
-    }, 3000);
+    }); // good method
+    // setInterval(() => this.loadUsers(), 3000);  // bad method
   }
 });
 
@@ -78929,7 +78933,9 @@ Vue.filter('ucFirst', function (text) {
 });
 Vue.filter('myDate', function (created) {
   return moment__WEBPACK_IMPORTED_MODULE_5___default()(created).format('MMMM Do YYYY, h:mm:ss A');
-});
+}); // new vue instance
+
+window.Fire = new Vue();
 var app = new Vue({
   el: '#app',
   router: router

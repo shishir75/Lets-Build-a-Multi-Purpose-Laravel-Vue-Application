@@ -62,6 +62,9 @@ Vue.filter('myDate', function(created)  {
    return moment(created).format('MMMM Do YYYY, h:mm:ss A');
 });
 
+// new vue instance
+window.Fire = new Vue();
+
 const app = new Vue({
     el: '#app',
     router,
