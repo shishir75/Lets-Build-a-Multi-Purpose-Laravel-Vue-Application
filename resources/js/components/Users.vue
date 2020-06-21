@@ -38,9 +38,9 @@
                                     <a href="#" class="btn btn-sm btn-outline-info">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-outline-danger">
+                                    <button @click="deleteUser(user.id)" class="btn btn-sm btn-outline-danger">
                                         <i class="fas fa-trash"></i>
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
 
@@ -145,10 +145,9 @@
             },
             createUser() {
                 this.$Progress.start();
-                this.form.post('api/user')
-                .then( () => {
-                    // custom event
-                    Fire.$emit('AfterCreate');
+                this.form.post('api/user').then( () => {
+
+                    Fire.$emit('AfterCreate'); // custom event
 
                     $('#addNew').modal('hide'); // hide modal
 
@@ -157,12 +156,55 @@
                         title: 'User Created successfully!'
                     })
                     this.$Progress.finish();
-                })
-                .catch( () => {
 
+                }).catch( () => {
+                    this.$Progress.fail();
                 });
 
-            }
+            },
+            deleteUser(id) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+
+                    if (result.value) {
+
+                        this.$Progress.start();
+                        // Send an ajax request to the server
+                        this.form.delete('api/user/' +id).then( () => {
+
+                            Fire.$emit('AfterCreate'); // custom event
+
+                            Swal.fire(
+                                'Deleted!',
+                                'User have been deleted.',
+                                'success'
+                            )
+                            this.$Progress.finish();
+                        }).catch( () => {
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'error',
+                                title: 'Something went wrong!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            this.$Progress.fail();
+                        });
+                    } else {
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'User remains Safe!'
+                        })
+                    }
+                });
+            },
         },
         created() {
             this.loadUsers();
