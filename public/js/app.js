@@ -38898,7 +38898,7 @@ var render = function() {
                           staticClass: "form-control",
                           class: { "is-invalid": _vm.form.errors.has("email") },
                           attrs: {
-                            type: "email",
+                            type: "text",
                             name: "email",
                             placeholder: "Enter Email Address"
                           },
