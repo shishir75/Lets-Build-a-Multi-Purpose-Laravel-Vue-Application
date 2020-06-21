@@ -32,8 +32,8 @@
                                 <td>{{ user.id }}</td>
                                 <td>{{ user.name }}</td>
                                 <td>{{ user.email }}</td>
-                                <td>{{ user.type }}</td>
-                                <td>{{ user.created_at }}</td>
+                                <td>{{ user.type | ucFirst }}</td>
+                                <td>{{ user.created_at | myDate }}</td>
                                 <td>
                                     <a href="#" class="btn btn-sm btn-outline-info">
                                         <i class="fas fa-edit"></i>

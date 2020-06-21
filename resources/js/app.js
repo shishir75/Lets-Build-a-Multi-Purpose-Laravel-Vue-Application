@@ -2,6 +2,7 @@ import VueRouter from 'vue-router';
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
 import Users from "./components/Users";
+import moment from "moment";
 
 require('./bootstrap');
 
@@ -28,6 +29,14 @@ const router = new VueRouter({
     routes // short for `routes: routes`
 });
 
+// vue global filter
+Vue.filter('ucFirst', (text) => {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+});
+
+Vue.filter('myDate', function(created)  {
+   return moment(created).format('MMMM Do YYYY, h:mm:ss A');
+});
 
 const app = new Vue({
     el: '#app',
