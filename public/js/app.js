@@ -2128,6 +2128,11 @@ __webpack_require__.r(__webpack_exports__);
       })
     };
   },
+  methods: {
+    createUser: function createUser() {
+      this.form.post('api/user');
+    }
+  },
   mounted: function mounted() {
     console.log('Component mounted.');
   }
@@ -38820,21 +38825,21 @@ var render = function() {
             _c("div", { staticClass: "modal-content" }, [
               _vm._m(1),
               _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c(
-                  "form",
-                  {
-                    on: {
-                      submit: function($event) {
-                        $event.preventDefault()
-                        return _vm.login($event)
-                      },
-                      keydown: function($event) {
-                        return _vm.form.onKeydown($event)
-                      }
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.createUser($event)
+                    },
+                    keydown: function($event) {
+                      return _vm.form.onKeydown($event)
                     }
-                  },
-                  [
+                  }
+                },
+                [
+                  _c("div", { staticClass: "modal-body" }, [
                     _c(
                       "div",
                       { staticClass: "form-group" },
@@ -39069,35 +39074,26 @@ var render = function() {
                         })
                       ],
                       1
-                    ),
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _vm._m(2),
                     _vm._v(" "),
                     _c(
                       "button",
                       {
                         staticClass: "btn btn-primary",
-                        attrs: { disabled: _vm.form.busy, type: "submit" }
+                        attrs: { type: "submit", disabled: _vm.form.busy }
                       },
-                      [_vm._v("Log In")]
+                      [
+                        _vm._v("Create "),
+                        _c("i", { staticClass: "fas fa-plus-circle ml-1" })
+                      ]
                     )
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _vm._m(2),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: { type: "submit", disabled: _vm.form.busy }
-                  },
-                  [
-                    _vm._v("Create "),
-                    _c("i", { staticClass: "fas fa-plus-circle ml-1" })
-                  ]
-                )
-              ])
+                  ])
+                ]
+              )
             ])
           ]
         )

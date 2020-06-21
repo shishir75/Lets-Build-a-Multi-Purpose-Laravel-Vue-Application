@@ -61,8 +61,9 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <form @submit.prevent="login" @keydown="form.onKeydown($event)">
+                    <form @submit.prevent="createUser" @keydown="form.onKeydown($event)">
+                        <div class="modal-body">
+
                             <div class="form-group">
                                 <label>Name</label>
                                 <input v-model="form.name" type="text" name="name"
@@ -107,13 +108,12 @@
                                 <has-error :form="form" field="password"></has-error>
                             </div>
 
-                            <button :disabled="form.busy" type="submit" class="btn btn-primary">Log In</button>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel <i class="fas fa-times-circle ml-1"></i></button>
-                        <button type="submit" :disabled="form.busy" class="btn btn-primary">Create <i class="fas fa-plus-circle ml-1"></i></button>
-                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel <i class="fas fa-times-circle ml-1"></i></button>
+                            <button type="submit" :disabled="form.busy" class="btn btn-primary">Create <i class="fas fa-plus-circle ml-1"></i></button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -135,6 +135,11 @@
                   photo: ''
               })
           }
+        },
+        methods: {
+            createUser() {
+                this.form.post('api/user');
+            }
         },
         mounted() {
             console.log('Component mounted.')
