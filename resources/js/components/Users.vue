@@ -133,6 +133,7 @@
           return {
               users: {},
               form: new Form({
+                  id: '',
                   name: '',
                   email: '',
                   password: '',
@@ -210,7 +211,27 @@
                 });
             },
             updateUser() {
-                console.log('Editing Data...........');
+                this.$Progress.start();
+
+                this.form.put('api/user/' + this.form.id).then( () => {
+
+                    $('#addNew').modal('hide'); // hide modal
+
+                    Fire.$emit('AfterCreate'); // custom event
+
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'User Updated Successfully!'
+                    })
+                    this.$Progress.finish();
+
+                }).catch( () => {
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'User have not been Updated!'
+                    })
+                    this.$Progress.fail();
+                });
             },
             newModal() {
                 this.form.reset();

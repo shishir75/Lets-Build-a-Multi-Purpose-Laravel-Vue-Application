@@ -2125,6 +2125,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       users: {},
       form: new Form({
+        id: '',
         name: '',
         email: '',
         password: '',
@@ -2205,7 +2206,28 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     updateUser: function updateUser() {
-      console.log('Editing Data...........');
+      var _this4 = this;
+
+      this.$Progress.start();
+      this.form.put('api/user/' + this.form.id).then(function () {
+        $('#addNew').modal('hide'); // hide modal
+
+        Fire.$emit('AfterCreate'); // custom event
+
+        Toast.fire({
+          icon: 'success',
+          title: 'User Updated Successfully!'
+        });
+
+        _this4.$Progress.finish();
+      })["catch"](function () {
+        Toast.fire({
+          icon: 'error',
+          title: 'User have not been Updated!'
+        });
+
+        _this4.$Progress.fail();
+      });
     },
     newModal: function newModal() {
       this.form.reset();
@@ -2223,11 +2245,11 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    var _this4 = this;
+    var _this5 = this;
 
     this.loadUsers();
     Fire.$on('AfterCreate', function () {
-      return _this4.loadUsers();
+      return _this5.loadUsers();
     }); // good method
     // setInterval(() => this.loadUsers(), 3000);  // bad method
   }
