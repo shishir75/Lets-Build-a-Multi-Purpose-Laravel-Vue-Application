@@ -2199,6 +2199,18 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
       });
+    },
+    newModal: function newModal() {
+      this.form.reset();
+      this.form.clear();
+      $('#addNew').modal('show'); // show modal
+    },
+    editModal: function editModal(user) {
+      this.form.reset();
+      this.form.clear();
+      $('#addNew').modal('show'); // show modal
+
+      this.form.fill(user);
     }
   },
   created: function created() {
@@ -63257,11 +63269,26 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-12" }, [
         _c("div", { staticClass: "card" }, [
-          _vm._m(0),
+          _c("div", { staticClass: "card-header" }, [
+            _c("h3", { staticClass: "card-title" }, [_vm._v("Users Table")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-tools" }, [
+              _c(
+                "button",
+                { staticClass: "btn btn-success", on: { click: _vm.newModal } },
+                [
+                  _c("i", { staticClass: "fas fa-user-plus mr-1" }),
+                  _vm._v(
+                    "\n                            Add New\n                        "
+                  )
+                ]
+              )
+            ])
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body table-responsive p-0" }, [
             _c("table", { staticClass: "table table-hover text-nowrap" }, [
-              _vm._m(1),
+              _vm._m(0),
               _vm._v(" "),
               _c(
                 "tbody",
@@ -63280,7 +63307,18 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("td", [
-                      _vm._m(2, true),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-sm btn-outline-info",
+                          on: {
+                            click: function($event) {
+                              return _vm.editModal(user)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fas fa-edit" })]
+                      ),
                       _vm._v(" "),
                       _c(
                         "button",
@@ -63326,7 +63364,7 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(3),
+              _vm._m(1),
               _vm._v(" "),
               _c(
                 "form",
@@ -63581,7 +63619,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "modal-footer" }, [
-                    _vm._m(4),
+                    _vm._m(2),
                     _vm._v(" "),
                     _c(
                       "button",
@@ -63609,32 +63647,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h3", { staticClass: "card-title" }, [
-        _vm._v("Responsive Hover Table")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-tools" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-success",
-            attrs: { "data-toggle": "modal", "data-target": "#addNew" }
-          },
-          [
-            _c("i", { staticClass: "fas fa-user-plus mr-1" }),
-            _vm._v(
-              "\n                            Add New\n                        "
-            )
-          ]
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
         _c("th", [_vm._v("ID")]),
@@ -63650,16 +63662,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Modify")])
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      { staticClass: "btn btn-sm btn-outline-info", attrs: { href: "#" } },
-      [_c("i", { staticClass: "fas fa-edit" })]
-    )
   },
   function() {
     var _vm = this

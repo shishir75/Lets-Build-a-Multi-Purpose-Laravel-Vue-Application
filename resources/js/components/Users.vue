@@ -4,10 +4,10 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Responsive Hover Table</h3>
+                        <h3 class="card-title">Users Table</h3>
 
                         <div class="card-tools">
-                            <button class="btn btn-success" data-toggle="modal" data-target="#addNew">
+                            <button class="btn btn-success" @click="newModal">
                                 <i class="fas fa-user-plus mr-1"></i>
                                 Add New
                             </button>
@@ -35,9 +35,9 @@
                                 <td>{{ user.type | ucFirst }}</td>
                                 <td>{{ user.created_at | myDate }}</td>
                                 <td>
-                                    <a href="#" class="btn btn-sm btn-outline-info">
+                                    <button @click="editModal(user)" class="btn btn-sm btn-outline-info">
                                         <i class="fas fa-edit"></i>
-                                    </a>
+                                    </button>
                                     <button @click="deleteUser(user.id)" class="btn btn-sm btn-outline-danger">
                                         <i class="fas fa-trash"></i>
                                     </button>
@@ -204,6 +204,17 @@
                         })
                     }
                 });
+            },
+            newModal() {
+                this.form.reset();
+                this.form.clear();
+                $('#addNew').modal('show'); // show modal
+            },
+            editModal(user) {
+                this.form.reset();
+                this.form.clear();
+                $('#addNew').modal('show'); // show modal
+                this.form.fill(user);
             },
         },
         created() {

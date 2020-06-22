@@ -58,7 +58,7 @@ Vue.filter('ucFirst', (text) => {
     return text.charAt(0).toUpperCase() + text.slice(1);
 });
 
-Vue.filter('myDate', function(created)  {
+Vue.filter('myDate', (created) => {
    return moment(created).format('MMMM Do YYYY, h:mm:ss A');
 });
 
