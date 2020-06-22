@@ -58,12 +58,13 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addNewLabel"><i class="fas fa-user-plus mr-1 green"></i> Add New User</h5>
+                        <h5 class="modal-title" id="addNewLabel"><i class="mr-1 green"  :class=" editMode ? 'fas fa-check-square' : 'fas fa-plus-circle' "></i>{{ editMode ? 'Update' : 'Add New'}}
+                            User</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form @submit.prevent="createUser" @keydown="form.onKeydown($event)">
+                    <form @submit.prevent="editMode ? updateUser() : createUser()" @keydown="form.onKeydown($event)">
                         <div class="modal-body">
 
                             <div class="form-group">
@@ -113,7 +114,9 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel <i class="fas fa-times-circle ml-1"></i></button>
-                            <button type="submit" :disabled="form.busy" class="btn btn-primary">Create <i class="fas fa-plus-circle ml-1"></i></button>
+                            <button type="submit" :disabled="form.busy" class="btn btn-primary">{{ editMode ? 'Update' : 'Create'}}
+                                <i class="ml-1" :class=" editMode ? 'fa fa-check' : 'fas fa-plus-circle' "></i>
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -136,7 +139,8 @@
                   type: '',
                   bio: '',
                   photo: ''
-              })
+              }),
+              editMode: true,
           }
         },
         methods: {
@@ -205,14 +209,19 @@
                     }
                 });
             },
+            updateUser() {
+                console.log('Editing Data...........');
+            },
             newModal() {
                 this.form.reset();
                 this.form.clear();
+                this.editMode = false;
                 $('#addNew').modal('show'); // show modal
             },
             editModal(user) {
                 this.form.reset();
                 this.form.clear();
+                this.editMode = true;
                 $('#addNew').modal('show'); // show modal
                 this.form.fill(user);
             },

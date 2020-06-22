@@ -2117,6 +2117,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2128,7 +2131,8 @@ __webpack_require__.r(__webpack_exports__);
         type: '',
         bio: '',
         photo: ''
-      })
+      }),
+      editMode: true
     };
   },
   methods: {
@@ -2200,14 +2204,19 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
+    updateUser: function updateUser() {
+      console.log('Editing Data...........');
+    },
     newModal: function newModal() {
       this.form.reset();
       this.form.clear();
+      this.editMode = false;
       $('#addNew').modal('show'); // show modal
     },
     editModal: function editModal(user) {
       this.form.reset();
       this.form.clear();
+      this.editMode = true;
       $('#addNew').modal('show'); // show modal
 
       this.form.fill(user);
@@ -63364,7 +63373,26 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(1),
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  { staticClass: "modal-title", attrs: { id: "addNewLabel" } },
+                  [
+                    _c("i", {
+                      staticClass: "mr-1 green",
+                      class: _vm.editMode
+                        ? "fas fa-check-square"
+                        : "fas fa-plus-circle"
+                    }),
+                    _vm._v(
+                      _vm._s(_vm.editMode ? "Update" : "Add New") +
+                        "\n                        User"
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._m(1)
+              ]),
               _vm._v(" "),
               _c(
                 "form",
@@ -63372,7 +63400,7 @@ var render = function() {
                   on: {
                     submit: function($event) {
                       $event.preventDefault()
-                      return _vm.createUser($event)
+                      _vm.editMode ? _vm.updateUser() : _vm.createUser()
                     },
                     keydown: function($event) {
                       return _vm.form.onKeydown($event)
@@ -63628,8 +63656,16 @@ var render = function() {
                         attrs: { type: "submit", disabled: _vm.form.busy }
                       },
                       [
-                        _vm._v("Create "),
-                        _c("i", { staticClass: "fas fa-plus-circle ml-1" })
+                        _vm._v(
+                          _vm._s(_vm.editMode ? "Update" : "Create") +
+                            "\n                            "
+                        ),
+                        _c("i", {
+                          staticClass: "ml-1",
+                          class: _vm.editMode
+                            ? "fa fa-check"
+                            : "fas fa-plus-circle"
+                        })
                       ]
                     )
                   ])
@@ -63667,25 +63703,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c("h5", { staticClass: "modal-title", attrs: { id: "addNewLabel" } }, [
-        _c("i", { staticClass: "fas fa-user-plus mr-1 green" }),
-        _vm._v(" Add New User")
-      ]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
   },
   function() {
     var _vm = this
