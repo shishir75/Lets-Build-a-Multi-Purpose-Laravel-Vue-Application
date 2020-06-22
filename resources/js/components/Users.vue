@@ -58,7 +58,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addNewLabel"><i class="mr-1 green"  :class=" editMode ? 'fas fa-check-square' : 'fas fa-plus-circle' "></i>{{ editMode ? 'Update' : 'Add New'}}
+                        <h5 class="modal-title" id="addNewLabel"><i class="mr-1"  :class=" editMode ? 'fas fa-check-square blue' : 'fas fa-plus-circle green' "></i>{{ editMode ? 'Update' : 'Add New'}}
                             User</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -114,7 +114,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel <i class="fas fa-times-circle ml-1"></i></button>
-                            <button type="submit" :disabled="form.busy" class="btn btn-primary">{{ editMode ? 'Update' : 'Create'}}
+                            <button type="submit" :disabled="form.busy" :class="editMode ? 'btn btn-primary' : 'btn btn-success'">{{ editMode ? 'Update' : 'Create'}}
                                 <i class="ml-1" :class=" editMode ? 'fa fa-check' : 'fas fa-plus-circle' "></i>
                             </button>
                         </div>

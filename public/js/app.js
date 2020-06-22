@@ -63379,10 +63379,10 @@ var render = function() {
                   { staticClass: "modal-title", attrs: { id: "addNewLabel" } },
                   [
                     _c("i", {
-                      staticClass: "mr-1 green",
+                      staticClass: "mr-1",
                       class: _vm.editMode
-                        ? "fas fa-check-square"
-                        : "fas fa-plus-circle"
+                        ? "fas fa-check-square blue"
+                        : "fas fa-plus-circle green"
                     }),
                     _vm._v(
                       _vm._s(_vm.editMode ? "Update" : "Add New") +
@@ -63652,7 +63652,9 @@ var render = function() {
                     _c(
                       "button",
                       {
-                        staticClass: "btn btn-primary",
+                        class: _vm.editMode
+                          ? "btn btn-primary"
+                          : "btn btn-success",
                         attrs: { type: "submit", disabled: _vm.form.busy }
                       },
                       [
