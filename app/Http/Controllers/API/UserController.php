@@ -7,6 +7,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Intervention\Image\Facades\Image;
 
 class UserController extends Controller
 {
@@ -73,12 +74,14 @@ class UserController extends Controller
 
         if ($request->photo) {
             $currentDate = Carbon::now()->toDateString();
-            $extension = explode('/', explode(':', substr($request->photo, 0, strpos($request->photo, ';'))))[1][1];
 
+            $extension = explode('/', explode(':', substr($request->photo, 0, strpos($request->photo, ';')))[1])[1];
 
             $imageName = $currentDate.'-'.uniqid(). '.' .$extension;
 
-            return $extension;
+            Image::make($request->photo)->save(public_path('img/profile/'). $imageName);
+
+            //return $imageName;
         }
         //return ['message', 'Updated'];
     }
