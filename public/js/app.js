@@ -2199,11 +2199,15 @@ __webpack_require__.r(__webpack_exports__);
       this.$Progress.start();
       axios.get('api/profile').then(function (_ref) {
         var data = _ref.data;
-        return _this.form.fill(data);
+
+        _this.form.fill(data);
+
+        _this.$Progress.finish();
+      })["catch"](function () {
+        _this.$Progress.fail();
       });
-      this.$Progress.finish();
     },
-    updateProfile: function updateProfile(e) {
+    updatePhoto: function updatePhoto(e) {
       var file = e.target.files[0];
       var reader = new FileReader();
       var vm = this;
@@ -2214,6 +2218,16 @@ __webpack_require__.r(__webpack_exports__);
       };
 
       reader.readAsDataURL(file);
+    },
+    updateProfile: function updateProfile() {
+      var _this2 = this;
+
+      this.$Progress.start();
+      this.form.put('api/profile').then(function () {
+        _this2.$Progress.finish();
+      })["catch"](function () {
+        _this2.$Progress.fail();
+      });
     }
   },
   created: function created() {
@@ -65250,14 +65264,31 @@ var render = function() {
                         _c("input", {
                           staticClass: "form-control",
                           attrs: { type: "file", id: "photo", name: "photo" },
-                          on: { change: _vm.updateProfile }
+                          on: { change: _vm.updatePhoto }
                         })
                       ])
                     ]),
                     _vm._v(" "),
                     _vm._m(6),
                     _vm._v(" "),
-                    _vm._m(7)
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c("div", { staticClass: "offset-sm-2 col-sm-10" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: { type: "submit" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.updateProfile($event)
+                              }
+                            }
+                          },
+                          [_vm._v("Update")]
+                        )
+                      ])
+                    ])
                   ])
                 ]
               )
@@ -65536,20 +65567,6 @@ var staticRenderFns = [
           staticClass: "form-control",
           attrs: { type: "text", id: "passport", placeholder: "Passport" }
         })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c("div", { staticClass: "offset-sm-2 col-sm-10" }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-          [_vm._v("Submit")]
-        )
       ])
     ])
   }

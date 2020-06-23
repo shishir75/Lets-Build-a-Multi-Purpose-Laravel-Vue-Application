@@ -160,7 +160,7 @@
                                     <div class="form-group row">
                                         <label for="photo" class="col-sm-2 col-form-label">Profile Photo</label>
                                         <div class="col-sm-10">
-                                            <input type="file" @change="updateProfile" class="form-control" id="photo" name="photo">
+                                            <input type="file" @change="updatePhoto" class="form-control" id="photo" name="photo">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -171,7 +171,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="offset-sm-2 col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" @click.prevent="updateProfile" class="btn btn-primary">Update</button>
                                         </div>
                                     </div>
                                 </form>
@@ -207,19 +207,31 @@
         methods: {
             loadProfile() {
                 this.$Progress.start();
-                axios.get('api/profile').then( ({ data }) => (this.form.fill(data)) );
-                this.$Progress.finish();
+                axios.get('api/profile').then( ( {data} ) => {
+                    this.form.fill(data);
+                    this.$Progress.finish();
+                }).catch( () => {
+                    this.$Progress.fail();
+                });
             },
-            updateProfile(e) {
+            updatePhoto(e) {
                 let file = e.target.files[0];
                 let reader = new FileReader();
                 let vm = this;
                 reader.onloadend = (file) => {
                     // console.log('Result', reader.result);
                     vm.form.photo = reader.result;
-
                 }
                 reader.readAsDataURL(file);
+            },
+            updateProfile() {
+                this.$Progress.start();
+                this.form.put('api/profile').then( () => {
+
+                    this.$Progress.finish();
+                }).catch( () => {
+                    this.$Progress.fail();
+                });
             }
         },
         created() {
