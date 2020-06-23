@@ -154,13 +154,13 @@
                                     <div class="form-group row">
                                         <label for="experience" class="col-sm-2 col-form-label">Experience</label>
                                         <div class="col-sm-10">
-                                            <textarea class="form-control" v-model="form.name" id="experience" placeholder="Experience"></textarea>
+                                            <textarea class="form-control" id="experience" placeholder="Experience"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="photo" class="col-sm-2 col-form-label">Profile Photo</label>
                                         <div class="col-sm-10">
-                                            <input type="file" class="form-control" id="photo">
+                                            <input type="file" @change="updateProfile" class="form-control" id="photo" name="photo">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -209,6 +209,17 @@
                 this.$Progress.start();
                 axios.get('api/profile').then( ({ data }) => (this.form.fill(data)) );
                 this.$Progress.finish();
+            },
+            updateProfile(e) {
+                let file = e.target.files[0];
+                let reader = new FileReader();
+                let vm = this;
+                reader.onloadend = (file) => {
+                    // console.log('Result', reader.result);
+                    vm.form.photo = reader.result;
+
+                }
+                reader.readAsDataURL(file);
             }
         },
         created() {

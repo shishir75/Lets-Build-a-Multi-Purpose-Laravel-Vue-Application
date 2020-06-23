@@ -2202,6 +2202,18 @@ __webpack_require__.r(__webpack_exports__);
         return _this.form.fill(data);
       });
       this.$Progress.finish();
+    },
+    updateProfile: function updateProfile(e) {
+      var file = e.target.files[0];
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onloadend = function (file) {
+        // console.log('Result', reader.result);
+        vm.form.photo = reader.result;
+      };
+
+      reader.readAsDataURL(file);
     }
   },
   created: function created() {
@@ -65222,45 +65234,26 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
+                    _vm._m(5),
+                    _vm._v(" "),
                     _c("div", { staticClass: "form-group row" }, [
                       _c(
                         "label",
                         {
                           staticClass: "col-sm-2 col-form-label",
-                          attrs: { for: "experience" }
+                          attrs: { for: "photo" }
                         },
-                        [_vm._v("Experience")]
+                        [_vm._v("Profile Photo")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-sm-10" }, [
-                        _c("textarea", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.name,
-                              expression: "form.name"
-                            }
-                          ],
+                        _c("input", {
                           staticClass: "form-control",
-                          attrs: {
-                            id: "experience",
-                            placeholder: "Experience"
-                          },
-                          domProps: { value: _vm.form.name },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(_vm.form, "name", $event.target.value)
-                            }
-                          }
+                          attrs: { type: "file", id: "photo", name: "photo" },
+                          on: { change: _vm.updateProfile }
                         })
                       ])
                     ]),
-                    _vm._v(" "),
-                    _vm._m(5),
                     _vm._v(" "),
                     _vm._m(6),
                     _vm._v(" "),
@@ -65512,14 +65505,17 @@ var staticRenderFns = [
     return _c("div", { staticClass: "form-group row" }, [
       _c(
         "label",
-        { staticClass: "col-sm-2 col-form-label", attrs: { for: "photo" } },
-        [_vm._v("Profile Photo")]
+        {
+          staticClass: "col-sm-2 col-form-label",
+          attrs: { for: "experience" }
+        },
+        [_vm._v("Experience")]
       ),
       _vm._v(" "),
       _c("div", { staticClass: "col-sm-10" }, [
-        _c("input", {
+        _c("textarea", {
           staticClass: "form-control",
-          attrs: { type: "file", id: "photo" }
+          attrs: { id: "experience", placeholder: "Experience" }
         })
       ])
     ])
