@@ -2210,15 +2210,25 @@ __webpack_require__.r(__webpack_exports__);
     updatePhoto: function updatePhoto(e) {
       // covert image to base64 string and send to server
       var file = e.target.files[0];
-      var reader = new FileReader();
-      var vm = this;
+      console.log(file);
 
-      reader.onloadend = function (file) {
-        // console.log('Result', reader.result);
-        vm.form.photo = reader.result;
-      };
+      if (file['size'] <= 2111775) {
+        // check file size more than 2MB
+        var reader = new FileReader();
+        var vm = this;
 
-      reader.readAsDataURL(file);
+        reader.onloadend = function (file) {
+          // console.log('Result', reader.result);
+          vm.form.photo = reader.result;
+        };
+
+        reader.readAsDataURL(file);
+      } else {
+        Toast.fire({
+          icon: 'error',
+          title: "Image size is bigger than 2MB"
+        });
+      }
     },
     updateProfile: function updateProfile() {
       var _this2 = this;

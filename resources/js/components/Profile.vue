@@ -216,13 +216,26 @@
             },
             updatePhoto(e) {  // covert image to base64 string and send to server
                 let file = e.target.files[0];
-                let reader = new FileReader();
-                let vm = this;
-                reader.onloadend = (file) => {
-                    // console.log('Result', reader.result);
-                    vm.form.photo = reader.result;
+
+                console.log(file);
+
+                if (file['size'] <= 2111775) {  // check file size more than 2MB
+
+                    let reader = new FileReader();
+                    let vm = this;
+                    reader.onloadend = (file) => {
+                        // console.log('Result', reader.result);
+                        vm.form.photo = reader.result;
+                    }
+                    reader.readAsDataURL(file);
+
+                } else {
+                    Toast.fire({
+                        icon: 'error',
+                        title: "Image size is bigger than 2MB"
+                    });
                 }
-                reader.readAsDataURL(file);
+
             },
             updateProfile() {
                 this.$Progress.start();
