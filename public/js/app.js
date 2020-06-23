@@ -65091,13 +65091,17 @@ var staticRenderFns = [
                 }
               },
               [
-                _c("h3", { staticClass: "widget-user-username text-right" }, [
-                  _vm._v("Elizabeth Pierce")
-                ]),
+                _c(
+                  "h3",
+                  { staticClass: "widget-user-username text-left text-dark" },
+                  [_vm._v("Elizabeth Pierce")]
+                ),
                 _vm._v(" "),
-                _c("h5", { staticClass: "widget-user-desc text-right" }, [
-                  _vm._v("Web Designer")
-                ])
+                _c(
+                  "h5",
+                  { staticClass: "widget-user-desc text-left text-dark" },
+                  [_vm._v("Web Designer")]
+                )
               ]
             ),
             _vm._v(" "),

@@ -7,8 +7,8 @@
                     <!-- Add the bg color to the header using any of the bg-* classes -->
                     <div class="widget-user-header text-white"
                          style="background: url('./img/back.JPG') center center; height: 250px !important;">
-                        <h3 class="widget-user-username text-right">Elizabeth Pierce</h3>
-                        <h5 class="widget-user-desc text-right">Web Designer</h5>
+                        <h3 class="widget-user-username text-left text-dark">Elizabeth Pierce</h3>
+                        <h5 class="widget-user-desc text-left text-dark">Web Designer</h5>
                     </div>
                     <div class="widget-user-image" style="top: 140px !important;">
                         <img class="img-circle" src="/img/me.JPG" alt="User Avatar" style="height: 150px !important; width: auto">
@@ -131,7 +131,7 @@
                                     <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
                                 </div>
                                 <!-- /.post -->
-                                
+
                             </div>
                             <!-- /.tab-pane -->
 
