@@ -2208,6 +2208,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     updatePhoto: function updatePhoto(e) {
+      // covert image to base64 string and send to server
       var file = e.target.files[0];
       var reader = new FileReader();
       var vm = this;

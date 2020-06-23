@@ -214,7 +214,7 @@
                     this.$Progress.fail();
                 });
             },
-            updatePhoto(e) {
+            updatePhoto(e) {  // covert image to base64 string and send to server
                 let file = e.target.files[0];
                 let reader = new FileReader();
                 let vm = this;
