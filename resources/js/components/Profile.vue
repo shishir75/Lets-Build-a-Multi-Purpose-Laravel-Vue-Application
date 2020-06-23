@@ -7,8 +7,8 @@
                     <!-- Add the bg color to the header using any of the bg-* classes -->
                     <div class="widget-user-header text-white"
                          style="background: url('./img/back.JPG') center center; height: 250px !important;">
-                        <h3 class="widget-user-username text-left text-dark">Elizabeth Pierce</h3>
-                        <h5 class="widget-user-desc text-left text-dark">Web Designer</h5>
+                        <h3 class="widget-user-username text-left text-dark">{{ form.name }}</h3>
+                        <h5 class="widget-user-desc text-left text-dark">{{ form.type | ucFirst }}</h5>
                     </div>
                     <div class="widget-user-image" style="top: 140px !important;">
                         <img class="img-circle" src="/img/me.JPG" alt="User Avatar" style="height: 150px !important; width: auto">
@@ -142,19 +142,19 @@
                                     <div class="form-group row">
                                         <label for="name" class="col-sm-2 col-form-label">Name</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="name" placeholder="Name">
+                                            <input type="text" v-model="form.name" class="form-control" id="name" placeholder="Name">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="email" class="col-sm-2 col-form-label">Email</label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="email" placeholder="Email">
+                                            <input type="email" v-model="form.email" class="form-control" id="email" placeholder="Email">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="experience" class="col-sm-2 col-form-label">Experience</label>
                                         <div class="col-sm-10">
-                                            <textarea class="form-control" id="experience" placeholder="Experience"></textarea>
+                                            <textarea class="form-control" v-model="form.name" id="experience" placeholder="Experience"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -191,8 +191,29 @@
 
 <script>
     export default {
-        mounted() {
-            console.log('Component mounted.')
+        data() {
+            return {
+                form: new Form({
+                    id: '',
+                    name: '',
+                    email: '',
+                    password: '',
+                    type: '',
+                    bio: '',
+                    photo: ''
+                }),
+            }
+        },
+        methods: {
+            loadProfile() {
+                this.$Progress.start();
+                axios.get('api/profile').then( ({ data }) => (this.form.fill(data)) );
+                this.$Progress.finish();
+            }
+        },
+        created() {
+            this.loadProfile();
+
         }
     }
 </script>
