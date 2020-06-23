@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -70,7 +71,15 @@ class UserController extends Controller
     {
         $user = auth('api')->user();
 
-        return $request->photo;
+        if ($request->photo) {
+            $currentDate = Carbon::now()->toDateString();
+            $extension = explode('/', explode(':', substr($request->photo, 0, strpos($request->photo, ';'))))[1][1];
+
+
+            $imageName = $currentDate.'-'.uniqid(). '.' .$extension;
+
+            return $extension;
+        }
         //return ['message', 'Updated'];
     }
 
