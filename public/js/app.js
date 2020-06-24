@@ -2256,6 +2256,10 @@ __webpack_require__.r(__webpack_exports__);
 
         _this2.$Progress.fail();
       });
+    },
+    getProfilePhoto: function getProfilePhoto() {
+      var photo = this.form.photo.length > 200 ? this.form.photo : "img/profile/" + this.form.photo;
+      return photo;
     }
   },
   created: function created() {
@@ -65177,21 +65181,34 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm._m(0),
+          _c(
+            "div",
+            {
+              staticClass: "widget-user-image",
+              staticStyle: { top: "140px !important" }
+            },
+            [
+              _c("img", {
+                staticClass: "img-circle",
+                staticStyle: { height: "150px !important", width: "auto" },
+                attrs: { src: _vm.getProfilePhoto(), alt: "User Avatar" }
+              })
+            ]
+          ),
           _vm._v(" "),
-          _vm._m(1)
+          _vm._m(0)
         ])
       ]),
       _vm._v(" "),
-      _vm._m(2),
+      _vm._m(1),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-9" }, [
         _c("div", { staticClass: "card" }, [
-          _vm._m(3),
+          _vm._m(2),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
             _c("div", { staticClass: "tab-content" }, [
-              _vm._m(4),
+              _vm._m(3),
               _vm._v(" "),
               _c(
                 "div",
@@ -65460,25 +65477,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "widget-user-image",
-        staticStyle: { top: "140px !important" }
-      },
-      [
-        _c("img", {
-          staticClass: "img-circle",
-          staticStyle: { height: "150px !important", width: "auto" },
-          attrs: { src: "/img/me.JPG", alt: "User Avatar" }
-        })
-      ]
-    )
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

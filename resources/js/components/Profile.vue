@@ -11,7 +11,7 @@
                         <h5 class="widget-user-desc text-left text-dark">{{ form.type | ucFirst }}</h5>
                     </div>
                     <div class="widget-user-image" style="top: 140px !important;">
-                        <img class="img-circle" src="/img/me.JPG" alt="User Avatar" style="height: 150px !important; width: auto">
+                        <img class="img-circle" :src="getProfilePhoto()" alt="User Avatar" style="height: 150px !important; width: auto">
                     </div>
                     <div class="card-footer">
                         <div class="row">
@@ -260,7 +260,11 @@
                     });
                     this.$Progress.fail();
                 });
-            }
+            },
+            getProfilePhoto() {
+                let photo = (this.form.photo.length > 200) ? this.form.photo : "img/profile/" + this.form.photo;
+                return photo;
+            },
         },
         created() {
             this.loadProfile();
