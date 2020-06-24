@@ -13,7 +13,12 @@ require('./bootstrap');
 window.Vue = require('vue');
 Vue.use(VueRouter);
 
-// Sweet Alert
+// gate start
+import Gate from './Gate';
+Vue.prototype.$gate = new Gate(window.user);
+// gate end
+
+// Sweet Alert start
 window.Swal = Swal;
 const Toast = Swal.mixin({
     toast: true,
@@ -28,18 +33,21 @@ const Toast = Swal.mixin({
 })
 
 window.Toast = Toast;
+// Sweet Alert end
 
-// VForm
+// VForm start
 window.Form = Form;
 Vue.component(HasError.name, HasError);
 Vue.component(AlertError.name, AlertError);
+// VForm end
 
-// progressbar
+// progressbar start
 Vue.use(VueProgressBar, {
     color: 'rgb(143, 255, 199)',
     failedColor: 'red',
     height: '4px'
 });
+// progressbar end
 
 let routes = [
     { path: '/dashboard', component: Dashboard },
@@ -55,7 +63,7 @@ const router = new VueRouter({
     routes // short for `routes: routes`
 });
 
-// vue global filter
+// vue global filter start
 Vue.filter('ucFirst', (text) => {
     return text.charAt(0).toUpperCase() + text.slice(1);
 });
@@ -63,6 +71,7 @@ Vue.filter('ucFirst', (text) => {
 Vue.filter('myDate', (created) => {
    return moment(created).format('MMMM Do YYYY, h:mm:ss A');
 });
+// vue global filter end
 
 // new vue instance
 window.Fire = new Vue();
