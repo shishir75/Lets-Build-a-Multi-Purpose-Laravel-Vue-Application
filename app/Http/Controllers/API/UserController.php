@@ -77,6 +77,7 @@ class UserController extends Controller
             'email' => 'required | email | max:191 | unique:users,email,'.$user->id,
             'password' => 'sometimes | required | string | min:8',
             'bio' => 'nullable',
+            'photo' => 'sometimes | required'
         ]);
 
 
@@ -92,6 +93,10 @@ class UserController extends Controller
             Image::make($request->photo)->save(public_path('img/profile/'). $imageName);
 
             $request->merge(['photo' => $imageName]);
+        }
+
+        if (!empty($request->password)) {
+            $request->merge(['password' => Hash::make($request['password'])]);
         }
 
         if ($user->update($request->all())) {

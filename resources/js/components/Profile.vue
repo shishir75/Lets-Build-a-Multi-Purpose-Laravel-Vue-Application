@@ -142,31 +142,36 @@
                                     <div class="form-group row">
                                         <label for="name" class="col-sm-2 col-form-label">Name</label>
                                         <div class="col-sm-10">
-                                            <input type="text" v-model="form.name" class="form-control" id="name" placeholder="Name">
+                                            <input type="text" v-model="form.name" class="form-control" :class="{ 'is-invalid': form.errors.has('name') }" id="name" placeholder="Name">
+                                            <has-error :form="form" field="name"></has-error>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="email" class="col-sm-2 col-form-label">Email</label>
                                         <div class="col-sm-10">
-                                            <input type="email" v-model="form.email" class="form-control" id="email" placeholder="Email">
+                                            <input type="email" v-model="form.email" class="form-control" :class="{ 'is-invalid': form.errors.has('email') }" id="email" placeholder="Email">
+                                            <has-error :form="form" field="email"></has-error>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="bio" class="col-sm-2 col-form-label">Bio</label>
                                         <div class="col-sm-10">
-                                            <textarea class="form-control" v-model="form.bio" id="bio" placeholder="Bio"></textarea>
+                                            <textarea class="form-control" v-model="form.bio" :class="{ 'is-invalid': form.errors.has('bio') }" id="bio" placeholder="Bio"></textarea>
+                                            <has-error :form="form" field="bio"></has-error>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="photo" class="col-sm-2 col-form-label">Profile Photo</label>
                                         <div class="col-sm-10">
-                                            <input type="file" @change="updatePhoto" class="form-control" id="photo" name="photo">
+                                            <input type="file" @change="updatePhoto" class="form-control" :class="{ 'is-invalid': form.errors.has('photo') }" id="photo" name="photo">
+                                            <has-error :form="form" field="photo"></has-error>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="password" class="col-sm-2 col-form-label">Password ( Optional )</label>
                                         <div class="col-sm-10">
-                                            <input type="password" v-model="form.password" class="form-control" id="password" placeholder="Password">
+                                            <input type="password" v-model="form.password" class="form-control" :class="{ 'is-invalid': form.errors.has('password') }" id="password" placeholder="Password">
+                                            <has-error :form="form" field="password"></has-error>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -230,10 +235,12 @@
                     reader.readAsDataURL(file);
 
                 } else {
+                    this.form.photo = null;
                     Toast.fire({
                         icon: 'error',
                         title: "Image size is bigger than 2MB"
                     });
+                    this.form['photo'].reset();
                 }
 
             },
