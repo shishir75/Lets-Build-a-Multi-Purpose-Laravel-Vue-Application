@@ -15,7 +15,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api');
-        Gate::authorize('isAdmin');
+
     }
 
     /**
@@ -25,6 +25,8 @@ class UserController extends Controller
      */
     public function index()
     {
+        Gate::authorize('isAdmin');
+
         return User::latest()->paginate(10);
     }
 
@@ -36,6 +38,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::authorize('isAdmin');
+
         $this->validate($request, [
             'name' => 'required | max: 191',
             'email' => 'required | email | max:191 | unique:users',
@@ -108,8 +112,11 @@ class UserController extends Controller
             $request->merge(['password' => Hash::make($request['password'])]);
         }
 
-        if ($user->update($request->all())) {
+        if ($request->type !== $user->type) {  // Security Essential, Must for avoiding sensitive data updated from dev tools
+            $request->merge(['type' => ($user['type'])]);
+        }
 
+        if ($user->update($request->all())) {
             return ['message', 'Updated'];
         } else {
             return ['message', 'Not Updated'];
@@ -126,6 +133,8 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        Gate::authorize('isAdmin');
+
         $user = User::findOrFail($id);
 
         $this->validate($request, [
