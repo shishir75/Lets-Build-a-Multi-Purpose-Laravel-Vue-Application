@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
 
@@ -147,6 +148,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        Gate::authorize('isAdmin');
+
         $user = User::findOrFail($id)->delete();
 
 
