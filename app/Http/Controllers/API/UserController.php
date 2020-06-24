@@ -72,7 +72,17 @@ class UserController extends Controller
     {
         $user = auth('api')->user();
 
-        if ($request->photo) {
+        $this->validate($request, [
+            'name' => 'required | max: 191',
+            'email' => 'required | email | max:191 | unique:users,email,'.$user->id,
+            'password' => 'sometimes | required | string | min:8',
+            'bio' => 'nullable',
+        ]);
+
+
+        $currentPhoto = $user->photo;
+
+        if ($request->photo != $currentPhoto ) {
             $currentDate = Carbon::now()->toDateString();
 
             $extension = explode('/', explode(':', substr($request->photo, 0, strpos($request->photo, ';')))[1])[1];
@@ -81,9 +91,16 @@ class UserController extends Controller
 
             Image::make($request->photo)->save(public_path('img/profile/'). $imageName);
 
-            //return $imageName;
+            $request->merge(['photo' => $imageName]);
         }
-        //return ['message', 'Updated'];
+
+        if ($user->update($request->all())) {
+
+            return ['message', 'Updated'];
+        } else {
+            return ['message', 'Not Updated'];
+        }
+
     }
 
     /**
@@ -100,7 +117,7 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required | max: 191',
             'email' => 'required | email | max:191 | unique:users,email,'.$user->id,
-            'password' => 'sometimes | string | min:8',
+            'password' => 'sometimes | required | string | min:8',
             'type' => 'required | string',
             'bio' => 'nullable',
         ]);

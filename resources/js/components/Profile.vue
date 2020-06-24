@@ -152,9 +152,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="experience" class="col-sm-2 col-form-label">Experience</label>
+                                        <label for="bio" class="col-sm-2 col-form-label">Bio</label>
                                         <div class="col-sm-10">
-                                            <textarea class="form-control" id="experience" placeholder="Experience"></textarea>
+                                            <textarea class="form-control" v-model="form.bio" id="bio" placeholder="Bio"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -164,9 +164,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="passport" class="col-sm-2 col-form-label">Passport ( Optional )</label>
+                                        <label for="password" class="col-sm-2 col-form-label">Password ( Optional )</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="passport" placeholder="Passport">
+                                            <input type="password" v-model="form.password" class="form-control" id="password" placeholder="Password">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -241,8 +241,16 @@
                 this.$Progress.start();
                 this.form.put('api/profile').then( () => {
 
+                    Toast.fire({
+                        icon: 'success',
+                        title: "Profile Updated Successfully"
+                    });
                     this.$Progress.finish();
                 }).catch( () => {
+                    Toast.fire({
+                        icon: 'error',
+                        title: "Profile not Update"
+                    });
                     this.$Progress.fail();
                 });
             }
