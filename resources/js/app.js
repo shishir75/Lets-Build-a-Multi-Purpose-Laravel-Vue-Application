@@ -94,6 +94,10 @@ Vue.component(
 
 // passport vue component end
 
+// Not Found Component start
+Vue.component('not-found', require('./components/NotFound.vue').default);
+// Not Found Component end
+
 const app = new Vue({
     el: '#app',
     router,
