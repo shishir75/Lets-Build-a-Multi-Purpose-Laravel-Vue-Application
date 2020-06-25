@@ -7,6 +7,7 @@ import moment from "moment";
 import VueProgressBar from 'vue-progressbar';
 import Swal from 'sweetalert2';
 import Developer from "./components/Developer";
+import NotFound from "./components/NotFound";
 
 require('./bootstrap');
 
@@ -54,6 +55,7 @@ let routes = [
     { path: '/profile', component: Profile },
     { path: '/users', component: Users },
     { path: '/developer', component: Developer },
+    { path: '*', component: NotFound },
 ];
 
 

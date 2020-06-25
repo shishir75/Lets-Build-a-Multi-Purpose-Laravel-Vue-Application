@@ -156,8 +156,12 @@
         },
         methods: {
             loadUsers() {
+                this.$Progress.start();
                 if (this.$gate.isAdminOrAuthor()) {
                     axios.get('api/user').then( ({ data }) => (this.users = data));
+                    this.$Progress.finish();
+                } else {
+                    this.$Progress.fail();
                 }
             },
             getResults(page = 1) {

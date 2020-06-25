@@ -2458,11 +2458,16 @@ __webpack_require__.r(__webpack_exports__);
     loadUsers: function loadUsers() {
       var _this = this;
 
+      this.$Progress.start();
+
       if (this.$gate.isAdminOrAuthor()) {
         axios.get('api/user').then(function (_ref) {
           var data = _ref.data;
           return _this.users = data;
         });
+        this.$Progress.finish();
+      } else {
+        this.$Progress.fail();
       }
     },
     getResults: function getResults() {
@@ -83726,7 +83731,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _components_Developer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/Developer */ "./resources/js/components/Developer.vue");
-/* harmony import */ var _Gate__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Gate */ "./resources/js/Gate.js");
+/* harmony import */ var _components_NotFound__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/NotFound */ "./resources/js/components/NotFound.vue");
+/* harmony import */ var _Gate__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Gate */ "./resources/js/Gate.js");
+
 
 
 
@@ -83743,7 +83750,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]); // gate start
 
 
-Vue.prototype.$gate = new _Gate__WEBPACK_IMPORTED_MODULE_9__["default"](window.user); // gate end
+Vue.prototype.$gate = new _Gate__WEBPACK_IMPORTED_MODULE_10__["default"](window.user); // gate end
 // Sweet Alert start
 
 window.Swal = sweetalert2__WEBPACK_IMPORTED_MODULE_7___default.a;
@@ -83784,6 +83791,9 @@ var routes = [{
 }, {
   path: '/developer',
   component: _components_Developer__WEBPACK_IMPORTED_MODULE_8__["default"]
+}, {
+  path: '*',
+  component: _components_NotFound__WEBPACK_IMPORTED_MODULE_9__["default"]
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
   mode: 'history',
