@@ -25,9 +25,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        Gate::authorize('isAdmin');
+        //Gate::authorize('isAdmin'); works only for single type user
 
-        return User::latest()->paginate(10);
+        //Gate::authorize('isAdminOrAuthor'); does not work for multi type user
+
+        if (Gate::allows('isAdmin') || Gate::allows('isAuthor')) { // for multi type user
+            return User::latest()->paginate(20);
+        }
     }
 
     /**
@@ -133,21 +137,25 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Gate::authorize('isAdmin');
+        //Gate::authorize('isAdmin');
 
-        $user = User::findOrFail($id);
+        if (Gate::allows('isAdmin') || Gate::allows('isAuthor')) {
+            $user = User::findOrFail($id);
 
-        $this->validate($request, [
-            'name' => 'required | max: 191',
-            'email' => 'required | email | max:191 | unique:users,email,'.$user->id,
-            'password' => 'sometimes | required | string | min:8',
-            'type' => 'required | string',
-            'bio' => 'nullable',
-        ]);
+            $this->validate($request, [
+                'name' => 'required | max: 191',
+                'email' => 'required | email | max:191 | unique:users,email,'.$user->id,
+                'password' => 'sometimes | required | string | min:8',
+                'type' => 'required | string',
+                'bio' => 'nullable',
+            ]);
 
-        $user->update($request->all());
+            $user->update($request->all());
 
-        return ['message', 'User have been updated'];
+            return ['message', 'User have been updated'];
+        }
+
+
     }
 
     /**
