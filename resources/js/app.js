@@ -91,12 +91,14 @@ Vue.component(
     'passport-personal-access-tokens',
     require('./components/passport/PersonalAccessTokens.vue').default
 );
-
 // passport vue component end
 
 // Not Found Component start
 Vue.component('not-found', require('./components/NotFound.vue').default);
 // Not Found Component end
+
+// Pagination Component
+Vue.component('pagination', require('laravel-vue-pagination'));
 
 const app = new Vue({
     el: '#app',

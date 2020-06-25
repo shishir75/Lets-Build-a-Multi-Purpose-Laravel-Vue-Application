@@ -28,7 +28,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="user in users" :key="user.id">
+                            <tr v-for="user in users.data" :key="user.id">
                                 <td>{{ user.id }}</td>
                                 <td>{{ user.name }}</td>
                                 <td>{{ user.email }}</td>
@@ -48,6 +48,13 @@
                         </table>
                     </div>
                     <!-- /.card-body -->
+                    <div class="card-footer">
+
+                        <pagination :data="users" @pagination-change-page="getResults" align="center" :limit="2"  :show-disabled="true" size="large">
+                            <span slot="prev-nav">&lt; Previous</span>
+                            <span slot="next-nav">Next &gt;</span>
+                        </pagination>
+                    </div>
                 </div>
                 <!-- /.card -->
             </div>
@@ -151,8 +158,14 @@
         methods: {
             loadUsers() {
                 if (this.$gate.isAdminOrAuthor()) {
-                    axios.get('api/user').then( ({ data }) => (this.users = data.data));
+                    axios.get('api/user').then( ({ data }) => (this.users = data));
                 }
+            },
+            getResults(page = 1) {
+                axios.get('api/user?page=' + page)
+                    .then(response => {
+                        this.users = response.data;
+                    });
             },
             createUser() {
                 this.$Progress.start();

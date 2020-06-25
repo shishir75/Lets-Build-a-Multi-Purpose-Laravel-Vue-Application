@@ -30,7 +30,7 @@ class UserController extends Controller
         //Gate::authorize('isAdminOrAuthor'); does not work for multi type user
 
         if (Gate::allows('isAdmin') || Gate::allows('isAuthor')) { // for multi type user
-            return User::latest()->paginate(20);
+            return User::latest()->paginate(5);
         }
     }
 
